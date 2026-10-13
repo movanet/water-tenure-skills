@@ -1,0 +1,26 @@
+# Scope of the synthetic 30-day media scan. SYNTHETIC EXAMPLE, NOT REAL DATA.
+# Read by scripts/scan_check.py; also the place to record the human's scope rulings.
+area: "Kali Wening basin, Arunika Province (fictional)"
+window: {from: "2025-09-01", to: "2025-09-30"}
+places:                      # sub-areas swept one by one; a record should name a place at this level or below
+  - Sukarukun
+  - Karangwangi
+  - Tegalsari
+  - Mekarsari
+themes:                      # what counts as water tenure at a place for this scan
+  - drought access and water sharing
+  - springs and wells
+  - irrigation structures and gate turns
+  - sand or mineral extraction affecting water users
+  - community water systems
+  - customary and religious practice at water sources
+exclude_terms:               # scope rulings by the person directing the scan; matching records are flagged for review
+  - flood
+  - banjir
+  - landslide
+  - tagihan
+  - water bill
+  - tax
+  - pajak
+min_admin_levels: 4          # Province > District > Sub-district > Village
+background_source_types: [academic, admin-record, statistics, grey-report]   # may pre-date the window

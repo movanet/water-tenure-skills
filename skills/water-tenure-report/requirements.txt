@@ -1,0 +1,8 @@
+# Python packages for the water-tenure-report pipeline (Python 3.9 or later).
+# Also needed, outside pip: pandoc 2.x or 3.x (https://pandoc.org/installing.html) for the .docx build.
+matplotlib>=3.5
+numpy>=1.21
+pyyaml>=5.4
+python-docx>=0.8.11
+# Optional, only for scripts/export_diagram.py:
+#   playwright>=1.40  pillow>=9   (then: playwright install chromium)

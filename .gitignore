@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Build outputs of the report pipeline (regenerate them; never commit real reports)
+build/
+out/
+_work/
+_build/
+private/
+
+# Real project data never belongs in this repository
+**/tenure-catalogue/
+**/research/
+**/human_turns/
+*.docx
+*.pdf
+
+# Secrets and local settings
+.env
+.env.*
+*.key
+*.pem
+.claude/settings.local.json
+
+# OS and editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Outputs of the README quick start
+/matrix.md
+/run-inputs/
+/publication/

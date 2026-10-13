@@ -1,0 +1,57 @@
+# Local-ingest protocol (step 2, local lane): ${vault_tag}
+
+You register the project's own evidence (${local_corpus}) in the hyperresearch vault, so that the
+pipeline's agents and the catalogue agents can read and cite it like a fetched source.
+
+- Working directory for every command: the project folder that holds the vault.
+- Vault CLI: `${hpr}` (on Windows prefix commands with `PYTHONIOENCODING=utf-8`).
+
+## For each local source that evidences water tenure in ${area}
+
+1. Extract the text with its locators intact: PDFs page by page with PyMuPDF (keep page markers;
+   OCR only pages with no text layer, and say so); slide decks with python-pptx, slide numbers and
+   speaker notes included; transcripts with line numbers; spreadsheets row by row.
+2. Write a note body to `research/runs/${vault_tag}/temp/local/<slug>.md` with:
+   - `Source file:` the absolute path of the original;
+   - `Source type:` one of the water-tenure-analysis source types (interview, group-interview, fgd,
+     workshop, admin-record, permit-register, statistics, grey-report, project-deliverable,
+     derived-summary, academic, news, ...);
+   - `Date:` of the event or document, not today;
+   - `Author/issuer:` agency or team; respondents by role only, never by a private person's name;
+   - `Locator scheme:` line, page, slide, row or timestamp;
+   - `Reliability:` for example "machine transcript, not checked", "team deliverable derived from
+     fieldwork round X", "official planning document";
+   - `## Extract`: the tenure-relevant facts, EACH with a pinpoint (`l.212`, `p.34`, `slide 7`,
+     `row 15`), verbatim quotes in the original language with a translation, numbers verbatim with
+     units. Anchor every fact to a named place or point with its administrative and hydrological
+     location and any coordinates the source gives. Transcribe tables of named users, intakes or
+     permits row by row with the row pinpoint.
+3. Create the note:
+
+   ```
+   ${hpr} note new "<Title (date)>" --body-file <scratch file> --tag ${vault_tag} --tag local-source
+       --tag <lane-tag> --source "<absolute path>" --type source --tier <ground_truth|institutional|practitioner>
+       --content-type <dataset|policy|report|article|forum> --summary "<one specific line>" -j
+   ```
+
+   If an option is rejected, drop it and retry; never drop `--tag` or `--source`.
+4. Write claims to `research/runs/${vault_tag}/temp/claims-<note-id>.json` in the format the
+   hyperresearch fetcher uses (claim, stance, evidence type, scope conditions, verbatim quoted
+   support, numbers, entities, time period, region, confidence, source note id): 5 to 25 load-bearing
+   claims per note.
+
+## Exclusions (binding)
+
+- AI-generated material is never evidence: chatbot transcripts, deep-research outputs, files named
+  after an AI tool, machine-written validation or patch notes. Do not ingest them as sources. If one
+  points to an original (a regulation, an article, an agency document), ingest the original if it is
+  available, and list unresolved originals in your report.
+- Wiki pages and summaries are digests: ingest the original they summarise; ingest the digest only
+  when the original is unreachable, and then as `derived-summary`.
+- Do not copy credentials, phone numbers or private persons' names.
+- Material about other areas is skipped.
+
+## Report back (300 words at most)
+
+Note ids with one line each; files examined but skipped, and why; originals referred to but not
+available; any table of named users or points you found (name and pinpoint only).

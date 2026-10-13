@@ -1,0 +1,29 @@
+---
+vault_tag: ${vault_tag}
+created: <ISO-8601 timestamp>
+source: user-prompt
+---
+
+Conduct a water tenure analysis of ${area}. Use the water-tenure-analysis skill and follow its rules
+and its report order. The research must be exhaustive and comprehensive, with ${citation_style}
+citations.
+
+First establish the area: ${coverage_question} Use that list to bound every later search, and leave
+out other basins unless an arrangement crosses into the area.
+
+I want every FAO water tenure type present in the area and a complete description of each
+arrangement: who takes water, from where, when, how much, who decides, who pays, who maintains, who
+enforces, what happens on breach, how officials treat it, how secure the users feel, the conflicts,
+and who is excluded.
+
+Focus on place- and point-based issues: tie every arrangement to a named place or point (spring,
+well, intake, weir, dam, canal reach, river reach, lake, village) with its administrative and
+hydrological location, and give coordinates only where a source states them.
+
+Divide the report by tenure type: one section for each FAO tenure type, including the types searched
+for and not found. Annexes are welcome: coverage of the area, the catalogue, a gazetteer of tenure
+points, the questions for legal assessment, and the source register.
+
+Build the catalogue (sources.csv, arrangements.csv, matrix.md) before drafting and check it with
+check_catalogue.py. Deliver the report as a Markdown file. Run an orchestrator and subagents as
+needed.

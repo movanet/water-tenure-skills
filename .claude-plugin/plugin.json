@@ -1,0 +1,22 @@
+{
+  "name": "water-tenure-skills",
+  "version": "1.0.0",
+  "description": "Agent Skills for water tenure analysis on the FAO typology: source-cited tenure catalogues from field and desk evidence, exhaustive desk assessments with hyperresearch, recent-media scans, long-form reports by tenure type with OSCOLA or APA footnotes, and publication to a tenure map. Vibe-coded with AI agents under the orchestration of Mohamad Mova Al'Afghani (CRPG).",
+  "author": {
+    "name": "CRPG - Center for Regulation, Policy and Governance (Mohamad Mova Al'Afghani)",
+    "url": "https://github.com/movanet"
+  },
+  "homepage": "https://github.com/movanet/water-tenure-skills",
+  "repository": "https://github.com/movanet/water-tenure-skills",
+  "license": "MIT",
+  "keywords": [
+    "water-tenure",
+    "water-governance",
+    "fao",
+    "water-rights",
+    "irrigation",
+    "research",
+    "agent-skills",
+    "indonesia"
+  ]
+}

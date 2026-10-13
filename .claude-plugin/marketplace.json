@@ -1,0 +1,28 @@
+{
+  "name": "water-tenure-skills",
+  "owner": {
+    "name": "CRPG - Center for Regulation, Policy and Governance",
+    "url": "https://github.com/movanet"
+  },
+  "metadata": {
+    "description": "Marketplace hosting the water-tenure-skills plugin by CRPG.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "water-tenure-skills",
+      "source": "./",
+      "description": "Agent Skills for water tenure analysis on the FAO typology: cited tenure catalogues, hyperresearch desk assessments, recent-media scans, long-form reports by tenure type, and publication to a tenure map.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CRPG - Center for Regulation, Policy and Governance (Mohamad Mova Al'Afghani)",
+        "url": "https://github.com/movanet"
+      },
+      "homepage": "https://github.com/movanet/water-tenure-skills",
+      "repository": "https://github.com/movanet/water-tenure-skills",
+      "license": "MIT",
+      "keywords": ["water-tenure", "water-governance", "fao", "research", "agent-skills"],
+      "category": "research"
+    }
+  ]
+}

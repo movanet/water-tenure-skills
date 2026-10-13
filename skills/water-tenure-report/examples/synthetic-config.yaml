@@ -1,0 +1,132 @@
+# Report config for the synthetic example. SYNTHETIC EXAMPLE, NOT REAL DATA.
+# Every path is relative to this file. Full reference: ../references/config.md
+
+report:
+  title: "Water Tenure in the Kali Wening Basin"
+  subtitle: "A Review and Map of Arrangements by Tenure Type (synthetic example)"
+  authors:
+    - "An AI research agent, with a named human orchestrator directing and reviewing"
+    - "Example Research Organisation"
+  date: "Synthetic example, not real data"
+  lang: en-GB
+  output_name: kali-wening-water-tenure-SYNTHETIC
+  citation_style: oscola          # oscola | apa
+  accessed: "1 October 2026"      # access date printed after web URLs
+  notice: "SYNTHETIC EXAMPLE, NOT REAL DATA. Every place, person, source and number in this report is invented."
+
+# Catalogues to merge. Each must pass check_catalogue.py. Prefixes keep ids unique.
+inputs:
+  - path: ../../water-tenure-analysis/examples/synthetic-catalogue
+    origin: catalogue
+    prefix: ""            # source ids kept as they are (S01, INT-V1-01, ...)
+    record_prefix: ""     # record ids kept (A001, ...)
+  - path: ../../water-tenure-media-scan/examples/synthetic-media-scan
+    origin: media-scan
+    prefix: "N"           # K01 -> NK01, X01 -> NX01
+    record_prefix: "N"    # A01 -> N01
+
+chapters_dir: synthetic-chapters
+work_dir: _build
+
+area:
+  name: "Kali Wening basin"
+  # Groups are hydrological or administrative groupings shown in charts (for example two river
+  # basins of one agency). A record is assigned by keyword in its location fields.
+  groups:
+    Upper catchment: ["upper catchment", "tegalsari", "tuk sepi"]
+    Wening scheme and lower river: ["wening scheme", "mainstem", "> sukarukun", "karangwangi", "mekarsari town"]
+  # Map units: names must match the GIS name field. Patterns are regular expressions matched
+  # against location_admin (lower case).
+  units:
+    - {name: Tegalsari, patterns: ["tegalsari"], group: Upper catchment}
+    - {name: Gunungsepi, patterns: ["> gunungsepi$", "> gunungsepi >"], group: Upper catchment}
+    - {name: Mekarsari, patterns: ["mekarsari town", "mekarsari sub-district"], group: Wening scheme and lower river}
+    - {name: Sukarukun, patterns: ["> sukarukun$", "> sukarukun >"], group: Wening scheme and lower river}
+    - {name: Karangwangi, patterns: ["karangwangi"], group: Wening scheme and lower river}
+    - {name: Wening Hilir, patterns: ["wening hilir"], group: Wening scheme and lower river}
+  area_level_markers: ["basin-wide", "all districts"]
+  max_units_per_record: 4
+
+gis:
+  admin: gis/admin.geojson
+  admin_name_field: shapeName
+  rivers: gis/rivers.geojson
+  river_name_field: name
+  main_rivers_regex: "wening|sepi"
+  extent: [100.975, 101.175, -12.91, -12.755]    # lon_min, lon_max, lat_min, lat_max
+  credit: "Boundaries and rivers: synthetic layers drawn for this example (not real places)."
+  label_rivers:
+    - {name: "Kali Wening", lon: 101.125, lat: -12.892}
+    - {name: "Kali Sepi", lon: 101.030, lat: -12.812}
+
+# Parts: a Part page is inserted before the chapter whose number is given.
+parts:
+  - first_chapter: 3
+    title: "Part I. Rights Granted or Held by the State"
+    intro: "Arrangements created or held through a public act: agency control, contracts, permits, reserves and the small-scale uses that need no permit."
+  - first_chapter: 5
+    title: "Part II. Collective and Community Tenure"
+    intro: "Water held in common by a defined group, governed by custom, or shared under religious practice."
+  - first_chapter: 7
+    title: "Part III. Tenure Outside or Against the State"
+    intro: "Uses that persist without a formal basis, public uses assumed to be lawful, and livelihoods water law does not address."
+  - first_chapter: 9
+    title: "Synthesis"
+    intro: ""
+
+# Reserved tokens: method sources cited in chapters that are not in any catalogue.
+reserved_sources:
+  FAO-LWDP10:
+    oscola: "Stephen Hodgson, *Exploring the Concept of Water Tenure* (Land and Water Discussion Paper 10, FAO 2016)"
+    short: "Hodgson, *Exploring the Concept of Water Tenure*"
+    apa: "Hodgson, S. (2016). *Exploring the concept of water tenure* (Land and Water Discussion Paper 10). FAO."
+  FAO-UNPACK:
+    oscola: "FAO, *Unpacking Water Tenure for Improved Food Security and Sustainable Development* (FAO 2020)"
+    short: "FAO, *Unpacking Water Tenure*"
+    apa: "FAO. (2020). *Unpacking water tenure for improved food security and sustainable development*. FAO."
+  IOP2023:
+    oscola: "Mohamad Mova AlAfghani and B Susetyo, 'Water Tenure Security for Palm Oil, Hydropower, and Geothermal' (2023) 1199 IOP Conference Series: Earth and Environmental Science 012016"
+    short: "AlAfghani and Susetyo"
+    apa: "AlAfghani, M. M., & Susetyo, B. (2023). Water tenure security for palm oil, hydropower, and geothermal. *IOP Conference Series: Earth and Environmental Science, 1199*, 012016."
+  FAO-PERSP:
+    oscola: "Stephen Hodgson and others (eds), *Water Tenure Perspectives: Proceedings of the Water Tenure Mondays Webinar Series* (FAO 2024) <https://doi.org/10.4060/cd2941en>"
+    short: "Hodgson and others, *Water Tenure Perspectives*"
+    apa: "Hodgson, S., et al. (Eds.). (2024). *Water tenure perspectives: Proceedings of the Water Tenure Mondays webinar series*. FAO. https://doi.org/10.4060/cd2941en"
+  JENRL:
+    oscola: "Mohamad Mova AlAfghani, Joyce Lee and Yumiko Yasuda, 'Potential Contribution of the Water Tenure Approach to the Implementation of International Norms Applicable to River Basins' (2025) Journal of Energy & Natural Resources Law <https://doi.org/10.1080/02646811.2025.2545686>"
+    short: "AlAfghani, Lee and Yasuda"
+    apa: "AlAfghani, M. M., Lee, J., & Yasuda, Y. (2025). Potential contribution of the water tenure approach to the implementation of international norms applicable to river basins. *Journal of Energy & Natural Resources Law*. https://doi.org/10.1080/02646811.2025.2545686"
+  SKILL:
+    oscola: "CRPG, *water-tenure-analysis* (AI agent skill, version 1.1.0, 2026) <https://github.com/movanet/water-tenure-skills>"
+    short: "CRPG, *water-tenure-analysis* skill"
+    apa: "CRPG. (2026). *water-tenure-analysis* (Version 1.1.0) [AI agent skill]. https://github.com/movanet/water-tenure-skills"
+
+# Optional verification figures for the methodology chapter (label, total N, checked or matched n).
+verification:
+  - ["Records read against their sources (spot check)", 22, 6]
+  - ["Quotes checked against source", 16, 16]
+  - ["Figures checked against source", 21, 21]
+
+# Optional AI-use annex inputs (Annex H). sessions_json comes from mine_sessions.py.
+ai_use:
+  statement: >-
+    This synthetic report was assembled by the pipeline's scripts from invented catalogues. In a real
+    project, state here who directed the work, which AI agents and models wrote which parts, and what a
+    person reviewed. Paraphrase the human directions; do not publish transcripts.
+  directions:
+    - ["(date)", "(session)", "Example: build a catalogue of water tenure arrangements in the basin, divided by tenure type, with every claim cited."]
+  not_verified_by_a_person:
+    - "Every record of this synthetic example (it is invented)."
+  sessions_json: null
+
+annexes: [A, B, C, D, E, F, G, H, I, J, K]
+annex_b_sensitive_precision: 2   # decimals kept for coordinates of sensitive records in Annex B
+
+docx:
+  heading_color: "0d366b"
+  accent_color: "1c5cab"
+  body_font: "Calibri"
+  heading_font: "Calibri Light"
+
+# Words flagged in the body text by build.py (reported, not changed).
+vocab_check: ["illegal", "unlawful", "violates", "delve", "tapestry", "crucial", "robust"]

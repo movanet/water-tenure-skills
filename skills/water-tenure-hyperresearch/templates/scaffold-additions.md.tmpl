@@ -1,0 +1,53 @@
+# Scaffold additions for a water tenure run (${vault_tag})
+
+Append these sections to `research/runs/${vault_tag}/scaffold.md` after the hyperresearch bootstrap
+writes it. The scaffold is the orchestrator's private planning document and never appears in the
+report.
+
+## Run config
+
+- gear: ${gear} (the user asked for an exhaustive analysis)
+- modality: collect (an enumerative catalogue per tenure type, with named fields) plus synthesize
+  (patterns across arrangements)
+- expected tier: full (multi-source desk research across legal, academic, grey, local and press
+  material; contested arrangements need dialectical handling)
+
+## Wrapper requirements (binding)
+
+- Output: Markdown. The final report is copied into the catalogue directory as `report.md`, beside
+  `sources.csv`, `arrangements.csv` and `matrix.md`: `${catalogue_dir}`.
+- Citation: inside the pipeline, cite as `[[note-id|pinpoint]]` wikilinks (gate-compatible). At
+  delivery, `wikilinks_to_tokens.py` converts them to citation tokens, and the `water-tenure-report`
+  skill resolves the tokens into ${citation_style} footnotes from the catalogue's source register.
+- Structure, in order:
+  1. establish the area first (${coverage_question});
+  2. the body categorised by tenure type on the FAO typology (formal-law types, then non-formal
+     types, then unclassified), one subsection per type, each arrangement named by its place;
+  3. annexes (coverage, catalogue, gazetteer of points, legal referral, source register).
+- Water-tenure-analysis skill rules: describe practice, do not decide legality (legal questions go to
+  a referral list, as questions); every statement with a source and a pinpoint; AI-generated material
+  is never evidence; numbers verbatim with unit; denominators; no respondent names; neutral register,
+  with no judgement such as "illegal use" in the report's own voice; no emoji or status icons.
+- Report order (from the skill): 1 Scope and sources; 2 Catalogue by tenure type; 3 Water uses and
+  users; 4 The tenure and use matrix; 5 Patterns across arrangements; 6 Contradictions and gaps;
+  7 Referral for legal assessment; 8 Verification note; Annexes.
+
+## Inserted stage C: build the catalogue (binding)
+
+Between step 2 (width sweep) and step 10 (triple draft), the orchestrator builds the catalogue with
+the skill's steps 2 to 8, partitioned by tenure-type group (see `temp/catalogue-protocol.md`):
+
+- C (after step 2): one subagent per tenure-type group writes partial `arrangements-<G>.csv`,
+  `sources-<G>.csv` and `notes-<G>.md` from the vault; the orchestrator merges them
+  (`merge_partials.py`), runs `check_catalogue.py` and `build_matrix.py`.
+- C-revision (after step 9): the depth investigators' interim notes and `comparisons.md` are applied
+  to the catalogue (new records, splits, corrected figures), with a revision log; the checker runs
+  again.
+- C-verify (before step 10): spot verification under the skill's step 9 (every figure and quote, and
+  at least one record in five read against its source), logged as "n of N".
+- Step 10 drafters receive `arrangements.csv` and `matrix.md` as the spine of the report.
+
+## Domain notes for subagents
+
+See `domain-notes.txt` (set as the run's `domain_notes` lever, so it is rendered into the research and
+drafting shims).

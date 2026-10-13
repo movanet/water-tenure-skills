@@ -1,0 +1,90 @@
+# Stage C: catalogue build by tenure-type group (${vault_tag})
+
+You are one catalogue agent. Your prompt names your **group** (C1 to C6), its tenure types and its
+arrangement-id range. You extract every arrangement the vault evidences for your group's types in
+${area}, under the rules of the water-tenure-analysis skill.
+
+- Skill folder: `${analysis_skill}`
+- Vault CLI: `${hpr}` (on Windows prefix commands with `PYTHONIOENCODING=utf-8`)
+- Partial outputs: `research/runs/${vault_tag}/temp/catalogue/`
+- Final catalogue (the orchestrator merges): `${catalogue_dir}`
+
+## Read first (binding)
+
+1. The skill's `SKILL.md`.
+2. Its `references/typology.md` (sections 1 to 6), `references/record-schema.md`,
+   `references/legal-boundary.md`, `references/sources-and-citation.md`, and the visibility checklist
+   in `references/field-methods.md` for the who-is-missing pass.
+3. The templates `assets/arrangements.template.csv` and `assets/sources.template.csv`: keep their
+   column order exactly.
+
+## Groups
+
+${groups_table}
+
+## Your job
+
+Extract, for your group's types, one record per rule-set by user group by source by place by season
+(split rows when any of these differ, and link them in `notes`).
+
+Find evidence with the vault: `note list --tag ${vault_tag} --all -j` (filter by theme and local
+tags), `search "<terms>" -j`, and `note show <id> -j`. Read the note BODY, not only its summary. Use
+the claims files `research/runs/${vault_tag}/temp/claims-*.json` and the source-analysis digests
+`temp/source-analysis-*.md` where present. When a note digests a local file, open the original at
+the pinpoint (the note's `source:` path) and cite that page or line.
+
+## Rules (non-negotiable)
+
+- No citation, no record. Every record has `source_ids` and `locators` paired one to one.
+- `source_id` is the vault **note id**, so citations can later be resolved from the register.
+- Register every source you cite in your partial sources CSV, one row per note, with: `source_type`
+  from the closed list in record-schema (the team's own reports are `project-deliverable`; wiki pages,
+  summaries and AI-drafted briefs are `derived-summary`; chatbot material is `ai-generated`), `title`,
+  `author_org`, `date` (of the document or event), `path_or_url` (the ORIGINAL URL or file path, not
+  the vault note path), `locator_scheme`, `derived_from` (the fieldwork round or original id, so that
+  several documents from one round count as one origin), `language`, `respondent_code` (role only),
+  `collected_by`, `anonymised`, `verifiability`, `reliability_notes` (unchecked machine transcript,
+  AI-drafted, aggregator text, page loaded by script, and so on).
+- Derived and AI-generated sources never support a record alone; cite the original wherever the vault
+  holds it.
+- Numbers verbatim with their unit; `figures_source` says which source states each number.
+  Conflicting figures go side by side in `contradictions`, each with its source. Never average or
+  pick.
+- Classify on reported practice and on how officials are reported to treat it. A legal premise goes
+  into `classification_basis` as a reported fact with its citation; the legal question goes into
+  `legal_flag`, ending with "?". Never write that a use is legal or illegal in your own voice;
+  attribute ("described by the agency as unlicensed"). Use `unclassified` rather than guess.
+- Place focus: `location_admin` = province > district > sub-district > village > hamlet or block
+  (mark unverified levels "(unverified)"); `location_hydro` = basin > sub-basin > scheme, river reach,
+  spring or aquifer > canal level > structure; `coordinates` only when a source gives them (decimal
+  degrees; convert grid coordinates only when the zone is stated, otherwise put the text in `notes`);
+  `upstream_downstream` where evidenced. Prefer records with a named point; a generic area-wide rule is
+  ONE record located at the area level.
+- `confidence` as defined in record-schema. Independence: an agency's slide and an agency official
+  describing the agency's own work are one leg. Explain triangulation in `notes`.
+- People: no private persons' names anywhere; officials by office. Sensitive allegations (bribery,
+  "mafia", threats) as patterns, without identifying individuals or offices.
+- Quotes: `quote_original` verbatim in the source language with its own pinpoint; `quote_translation`
+  marked "[translation unverified]" until checked.
+- `gedsi_notes`: who is excluded or burdened, with denominators where the source gives them.
+- Neutral register; no emoji. In Indonesian text use "tenurial" for tenure.
+
+## Output (UTF-8 CSV, header = template columns exactly, `;` for multiple values)
+
+- `temp/catalogue/arrangements-<GROUP>.csv`: `arrangement_id` within your range, sequential.
+- `temp/catalogue/sources-<GROUP>.csv`: every source you cited.
+- `temp/catalogue/notes-<GROUP>.md`: (a) your types searched for and NOT found, with what you
+  searched (absences are findings); (b) contradictions; (c) gaps and next fieldwork questions;
+  (d) your legal questions.
+
+Then copy your two CSVs as `arrangements.csv` and `sources.csv` into `temp/catalogue/check-<GROUP>/`
+and run the checker until it reports no errors:
+
+```
+python "${analysis_skill}/scripts/check_catalogue.py" research/runs/${vault_tag}/temp/catalogue/check-<GROUP>
+```
+
+## Report back (250 words at most)
+
+Record count by tenure type; places covered; checker result (errors, warnings); key contradictions;
+absences.

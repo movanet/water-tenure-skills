@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use these skills, please cite them as below."
+title: "Water Tenure Skills"
+type: software
+version: 1.0.0
+date-released: 2026-10-13
+authors:
+  - family-names: "Al'Afghani"
+    given-names: "Mohamad Mova"
+    affiliation: "CRPG - Center for Regulation, Policy and Governance"
+  - name: "CRPG - Center for Regulation, Policy and Governance"
+repository-code: "https://github.com/movanet/water-tenure-skills"
+url: "https://github.com/movanet/water-tenure-skills"
+license: MIT
+keywords:
+  - water tenure
+  - water governance
+  - water rights
+  - FAO water tenure typology
+  - water tenure assessment
+  - agent skills
+  - Claude Code
+  - research software
+abstract: >-
+  A Claude Code plugin and Agent Skills pack for water tenure analysis on the FAO typology:
+  source-cited catalogues of tenure arrangements from field and desk evidence, exhaustive desk
+  assessments with the hyperresearch pipeline, recent-media scans, long-form reports organised by
+  tenure type with OSCOLA or APA footnotes, and publication to a tenure map. The software and skills
+  were vibe-coded: written by AI coding agents (Claude Code with Anthropic Claude models, operated as
+  CRPG's agent "Mobot") under the orchestration of Mohamad Mova Al'Afghani, who set the goals, the
+  method and the domain rules, and directed and reviewed the work. Treat it as research software.

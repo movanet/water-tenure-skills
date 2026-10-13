@@ -1,0 +1,20 @@
+# Scope of a hyperresearch run for the synthetic Kali Wening basin. SYNTHETIC EXAMPLE, NOT REAL DATA.
+# Render the run inputs with:  python ../scripts/make_run_inputs.py synthetic-scope.yaml --out rendered
+area: "the Kali Wening basin, Arunika Province (fictional)"
+coverage_question: >-
+  Which districts, sub-districts, sub-basins, irrigation schemes (by level of government), weirs,
+  dams and intakes does the Kali Wening Basin Agency cover, and on what legal basis?
+languages: [Indonesian, Javanese, English]
+period: "arrangements current 2015-2026, with historical origins where they explain present tenure"
+as_of: 2026
+source_priorities:
+  - "primary official documents first: the basin agency's instruments, allocation plans and news pages; national and provincial regulation databases; district regulations and statistics"
+  - "then peer-reviewed and university work (journals, theses, repositories)"
+  - "then NGO reports"
+  - "then credible national and regional press"
+local_corpus: "the project's workshop notes, interview transcripts, mapping deliverables and slide decks"
+local_terms: [giliran, golongan, pompanisasi, bobokan, tuk, sumur, raksabumi, P3A, nyadran]
+out_of_scope: ["other river basins unless an arrangement crosses into the Kali Wening basin", "disasters as such", "utility bills, water taxes and fees"]
+citation_style: OSCOLA
+catalogue_dir: "tenure-catalogue/kali-wening-2026-10-01"
+gear: premier
